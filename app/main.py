@@ -11,6 +11,10 @@ from app.services.openai_client import generate_workouts as ai_generate
 
 app = FastAPI(title="Hyper App AI Service")
 
+@app.get("/")
+def read_root():
+    return {"message": "Ai microservice is up!"}
+
 @app.post("/generate-workouts")
 async def generate_workouts(request: AIRequest):
     try:

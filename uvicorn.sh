@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-# Carrega variáveis do .env
+#!/bin/bash
 set -a
 source .env
 set +a
