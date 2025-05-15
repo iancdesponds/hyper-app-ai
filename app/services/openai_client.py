@@ -13,13 +13,13 @@ if not endpoint or not api_key:
     raise RuntimeError("Variáveis de ambiente da OpenAI não configuradas")
 
 
-def generate_workouts(data: AIRequest) -> dict:
+def generate_workouts(data: dict) -> dict:
     url = f"{endpoint}/openai/deployments/{deployment}/chat/completions?api-version=2025-01-01-preview"
     headers = {"Content-Type": "application/json", "api-key": api_key}
-    
+
     messages = [
         {"role": "system", "content": "Você é um assistente que gera planos de treino."},
-        {"role": "user",   "content": build_prompt(data)}
+        {"role": "user", "content": build_prompt(data)}
     ]
     body = {"messages": messages, "max_tokens": 2000, "temperature": 0.7}
 
@@ -28,10 +28,9 @@ def generate_workouts(data: AIRequest) -> dict:
         raise HTTPException(status_code=resp.status_code, detail=resp.text)
 
     content = resp.json()["choices"][0]["message"]["content"]
-    print("Resposta bruta da IA:\n", content)  # debug log
+    print("Resposta bruta da IA:\n", content)
 
     try:
-        # Extrai apenas o trecho JSON (primeira e última chave)
         json_start = content.find('{')
         json_end = content.rfind('}') + 1
         json_data = content[json_start:json_end].strip()
