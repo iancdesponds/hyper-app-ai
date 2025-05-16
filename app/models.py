@@ -31,7 +31,7 @@ class Exercise(Base):
     __tablename__ = 'exercise'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(20), unique=True)
+    name = Column(String(90), unique=True)
 
 
 class Password(Base):
@@ -138,7 +138,7 @@ class TrainExerciseView(Base):
     train_name = Column(String(45))
     series_id = Column(Integer, primary_key=True)
     exercise_id = Column(Integer, primary_key=True)
-    exercise_name = Column(String(20))
+    exercise_name = Column(String(90))
     exercise_weight = Column(Integer)
     exercise_repetitions = Column(Integer)
     exercise_rest = Column(Integer)

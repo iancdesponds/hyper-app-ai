@@ -14,7 +14,13 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     raise RuntimeError("Defina a env var DATABASE_URL")
 
-engine = create_engine(DATABASE_URL, connect_args={"ssl": {"ca": "ca.pem"}})
+# engine = create_engine(DATABASE_URL, connect_args={"ssl": {"ca": "ca.pem"}})
+engine = create_engine(
+    DATABASE_URL,
+    connect_args={"ssl": {"ca": "ca.pem"}},
+    pool_pre_ping=True,
+    pool_recycle=3600,  # recicla conexões antigas
+)
 
 SessionLocal = sessionmaker(
     autocommit=False,

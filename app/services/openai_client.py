@@ -2,7 +2,7 @@ import os
 import json
 import requests
 from fastapi import HTTPException
-from app.models import AIRequest
+from app.models import *
 from app.utils import build_prompt
 
 endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
@@ -28,7 +28,7 @@ def generate_workouts(data: dict) -> dict:
         raise HTTPException(status_code=resp.status_code, detail=resp.text)
 
     content = resp.json()["choices"][0]["message"]["content"]
-    print("Resposta bruta da IA:\n", content)
+    # print("Resposta bruta da IA:\n", content)
 
     try:
         json_start = content.find('{')

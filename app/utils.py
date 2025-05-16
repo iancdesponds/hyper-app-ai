@@ -1,5 +1,5 @@
 import json
-from app.models import AIRequest
+from app.models import *
 
 def build_prompt(data: dict) -> str:
     dias_semana = {
